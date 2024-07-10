@@ -26,6 +26,36 @@ function deriveActivePlayer(gameTurns) {
   return currActivePlayer;
 }
 
+function deriveWinner(gameBoard, playersName) {
+  let winner;
+  for (const combination of WINNING_COMBINATIONS) {
+    const firstSelectedSquare =
+      gameBoard[combination[0].row][combination[0].column];
+    const secondSelectedSquare =
+      gameBoard[combination[1].row][combination[1].column];
+    const thirdSelectedSquare =
+      gameBoard[combination[2].row][combination[2].column];
+    if (
+      firstSelectedSquare &&
+      firstSelectedSquare === secondSelectedSquare &&
+      firstSelectedSquare === thirdSelectedSquare
+    ) {
+      winner = playersName[firstSelectedSquare];
+    }
+  }
+  return winner;
+}
+
+function deriveGameBoard(gameTurns) {
+  const gameBoard = [...initialGameBoard.map((row) => [...row])];
+  for (const turn of gameTurns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+    gameBoard[row][col] = player;
+  }
+  return gameBoard;
+}
+
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
   const [playersName, setPlayersName] = useState(PLAYERS);
@@ -53,29 +83,8 @@ function App() {
     });
   }
 
-  const gameBoard = [...initialGameBoard.map((row) => [...row])];
-  for (const turn of gameTurns) {
-    const { square, player } = turn;
-    const { row, col } = square;
-    gameBoard[row][col] = player;
-  }
-  let winner;
-  for (const combination of WINNING_COMBINATIONS) {
-    const firstSelectedSquare =
-      gameBoard[combination[0].row][combination[0].column];
-    const secondSelectedSquare =
-      gameBoard[combination[1].row][combination[1].column];
-    const thirdSelectedSquare =
-      gameBoard[combination[2].row][combination[2].column];
-    if (
-      firstSelectedSquare &&
-      firstSelectedSquare === secondSelectedSquare &&
-      firstSelectedSquare === thirdSelectedSquare
-    ) {
-      winner = playersName[firstSelectedSquare];
-    }
-  }
-
+  const gameBoard = deriveGameBoard(gameTurns);
+  const winner = deriveWinner(gameBoard, playersName);
   const hasDraw = gameTurns.length === 9 && !winner;
 
   return (
