@@ -7,6 +7,11 @@ import GameOver from "./components/GameOver";
 
 import { WINNING_COMBINATIONS } from "../../../second/project 2/src/winning-combination";
 
+const PLAYERS = {
+  X: "Player 1",
+  O: "Player 2",
+};
+
 const initialGameBoard = [
   [null, null, null],
   [null, null, null],
@@ -23,6 +28,7 @@ function deriveActivePlayer(gameTurns) {
 
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
+  const [playersName, setPlayersName] = useState(PLAYERS);
   const activePlayer = deriveActivePlayer(gameTurns);
   function handleSelectSquare(rowIndex, colIndex) {
     setGameTurns((prevGameTurns) => {
@@ -34,6 +40,19 @@ function App() {
       return updatedGameTurns;
     });
   }
+  function handleRematch() {
+    setGameTurns([]);
+  }
+
+  function handleChangeName(symbol, name) {
+    setPlayersName((prevName) => {
+      return {
+        ...prevName,
+        [symbol]: name,
+      };
+    });
+  }
+
   const gameBoard = [...initialGameBoard.map((row) => [...row])];
   for (const turn of gameTurns) {
     const { square, player } = turn;
@@ -53,7 +72,7 @@ function App() {
       firstSelectedSquare === secondSelectedSquare &&
       firstSelectedSquare === thirdSelectedSquare
     ) {
-      winner = firstSelectedSquare;
+      winner = playersName[firstSelectedSquare];
     }
   }
 
@@ -67,17 +86,21 @@ function App() {
             initialPlayerName="Player 1"
             symbol="X"
             isActive={activePlayer === "X"}
+            onChangeName={handleChangeName}
           />
           <Player
             initialPlayerName="Player 2"
             symbol="O"
             isActive={activePlayer === "O"}
+            onChangeName={handleChangeName}
           />
         </ol>
-        {(winner || hasDraw) && <GameOver winner={winner} />}
+        {(winner || hasDraw) && (
+          <GameOver onRematch={handleRematch} winner={winner} />
+        )}
         <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
-      <Log turns={gameTurns} />
+      <Log turns={gameTurns} name={playersName} />
     </>
   );
 }
