@@ -7,7 +7,7 @@ function App() {
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <Player initialPlayerName="Player 1" symbol="X" />
-          <Player initialPlayerName="Player 2" symbol="Y" />
+          <Player initialPlayerName="Player 2" symbol="O" />
         </ol>
         <GameBoard />
       </div>
