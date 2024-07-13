@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import ResultModal from "./ResultModal";
 
 export default function TimerChallenge({ title, targetTime }) {
   const [timeRemaining, setTimeRemaining] = useState(targetTime * 1000);
@@ -8,6 +9,7 @@ export default function TimerChallenge({ title, targetTime }) {
 
   if (timeRemaining <= 0) {
     clearInterval(timer.current);
+    dialog.current.showModal();
     //show modal
   }
 
@@ -24,10 +26,17 @@ export default function TimerChallenge({ title, targetTime }) {
   function handleStop() {
     clearInterval(timer.current);
     //show modal
+    dialog.current.showModal();
   }
 
   return (
     <>
+      <ResultModal
+        ref={dialog}
+        targetTime={targetTime}
+        remainingTime={timeRemaining}
+        onReset={handleReset}
+      />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
