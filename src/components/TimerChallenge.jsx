@@ -9,7 +9,7 @@ export default function TimerChallenge({ title, targetTime }) {
 
   if (timeRemaining <= 0) {
     clearInterval(timer.current);
-    dialog.current.showModal();
+    dialog.current.open();
     //show modal
   }
 
@@ -26,7 +26,7 @@ export default function TimerChallenge({ title, targetTime }) {
   function handleStop() {
     clearInterval(timer.current);
     //show modal
-    dialog.current.showModal();
+    dialog.current.open();
   }
 
   return (
