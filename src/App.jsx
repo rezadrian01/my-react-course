@@ -5,6 +5,8 @@ import Shop from "./components/Shop.jsx";
 import { DUMMY_PRODUCTS } from "./dummy-products.js";
 import Product from "./components/Product.jsx";
 
+import { CartContext } from "./store/shoping-cart-context.jsx";
+
 function App() {
   const [shoppingCart, setShoppingCart] = useState({
     items: [],
@@ -67,7 +69,7 @@ function App() {
   }
 
   return (
-    <>
+    <CartContext.Provider>
       <Header
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
@@ -79,7 +81,7 @@ function App() {
           </li>
         ))}
       </Shop>
-    </>
+    </CartContext.Provider>
   );
 }
 
