@@ -2,6 +2,8 @@ import { useState, useCallback } from "react";
 import QUESTION from "../questions.js";
 import quizCompleteImg from "../assets/quiz-complete.png";
 import QuestionTimer from "./QuestionTimer.jsx";
+import Answer from "./Answers.jsx";
+import Question from "./Question.jsx";
 
 export default function Quiz() {
   const [answerState, setAnswerState] = useState("");
@@ -40,43 +42,18 @@ export default function Quiz() {
       </div>
     );
   }
-  const shuffledAnswers = [...QUESTION[activeQuestionIndex].answers];
-  shuffledAnswers.sort(() => Math.random() - 0.5);
+
   return (
     <div id="quiz">
-      <div id="question">
-        <QuestionTimer
-          key={activeQuestionIndex}
-          timeout={10000}
-          onTimeout={handleSkipAnswer}
-        />
-        <h2>{QUESTION[activeQuestionIndex].text}</h2>
-        <ul id="answers">
-          {shuffledAnswers.map((answer) => {
-            const isSelected = userAnswers[userAnswers.length - 1] === answer;
-            let cssClass = "";
-            if (isSelected && answerState === "answered") {
-              cssClass = "selected";
-            }
-            if (
-              (answerState === "correct" || answerState === "wrong") &&
-              isSelected
-            ) {
-              cssClass = answerState;
-            }
-            return (
-              <li key={answer} className="answer">
-                <button
-                  className={cssClass}
-                  onClick={() => handleSelectAnswer(answer)}
-                >
-                  {answer}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <Question
+        key={activeQuestionIndex}
+        questionText={QUESTION[activeQuestionIndex].text}
+        answers={QUESTION[activeQuestionIndex].answers}
+        onSelectAnswer={handleSelectAnswer}
+        answerState={answerState}
+        selectedAnswer={userAnswers[userAnswers.length - 1]}
+        onSkip={handleSkipAnswer}
+      />
     </div>
   );
 }
