@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "p9",
+    "title": "Great Barrier Reef",
+    "image": {
+      "src": "great-barrier-reef.jpg",
+      "alt": "Vibrant coral formations of the Great Barrier Reef underwater."
+    },
+    "lat": -18.2871,
+    "lon": 147.6992
+  }
+]
