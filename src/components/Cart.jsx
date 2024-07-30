@@ -9,13 +9,17 @@ import CartItem from "./CartItem";
 
 export default function Cart({}) {
   const { items, addItem, removeItem } = useContext(CartContext);
-  const { userProgress, hideCart } = useContext(UserProgressContext);
+  const { userProgress, hideCart, showCheckout } =
+    useContext(UserProgressContext);
 
   const totalPrice = items.reduce((totalItemsPrice, item) => {
     return totalItemsPrice + item.quantity * item.price;
   }, 0);
   return (
-    <Modal open={userProgress === "cart"}>
+    <Modal
+      open={userProgress === "cart"}
+      onClose={userProgress === "cart" ? hideCart : null}
+    >
       <h2>Your Cart</h2>
       <ul>
         {items.map((item) => {
@@ -36,7 +40,9 @@ export default function Cart({}) {
         <Button onClick={hideCart} textOnly>
           Close
         </Button>
-        {items.length > 0 && <Button onClick={hideCart}>Go To Checkout</Button>}
+        {items.length > 0 && (
+          <Button onClick={showCheckout}>Go To Checkout</Button>
+        )}
       </p>
     </Modal>
   );
