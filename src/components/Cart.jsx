@@ -5,9 +5,10 @@ import Button from "./UI/Button";
 import CartContext from "../store/CartContext";
 import UserProgressContext from "../store/UserProgressContext";
 import { currencyFormatter } from "../utils/formatting";
+import CartItem from "./CartItem";
 
 export default function Cart({}) {
-  const { items } = useContext(CartContext);
+  const { items, addItem, removeItem } = useContext(CartContext);
   const { userProgress, hideCart } = useContext(UserProgressContext);
 
   const totalPrice = items.reduce((totalItemsPrice, item) => {
@@ -19,9 +20,14 @@ export default function Cart({}) {
       <ul>
         {items.map((item) => {
           return (
-            <li key={item.id}>
-              {item.name} - {item.quantity}
-            </li>
+            <CartItem
+              key={item.id}
+              name={item.name}
+              quantity={item.quantity}
+              price={item.price}
+              onDecrease={() => removeItem(item.id)}
+              onIncrease={() => addItem(item)}
+            />
           );
         })}
       </ul>
@@ -30,7 +36,7 @@ export default function Cart({}) {
         <Button onClick={hideCart} textOnly>
           Close
         </Button>
-        <Button onClick={hideCart}>Go To Checkout</Button>
+        {items.length > 0 && <Button onClick={hideCart}>Go To Checkout</Button>}
       </p>
     </Modal>
   );
