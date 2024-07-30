@@ -12,12 +12,29 @@ export default function Checkout({}) {
   const totalPrice = items.reduce((totalPriceItems, item) => {
     return totalPriceItems + item.quantity * item.price;
   }, 0);
+  function handleSubmit(event) {
+    event.preventDefault();
+    const fd = new FormData(event.target);
+    const customerData = Object.fromEntries(fd.entries());
+    fetch("http://localhost:3000/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        order: {
+          items,
+          customer: customerData,
+        },
+      }),
+    });
+  }
   return (
     <Modal
       open={userProgress === "checkout"}
       onClose={userProgress === "checkout" ? hideCheckout : null}
     >
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>Checkout</h2>
         <p>Total Amount: {currencyFormatter.format(totalPrice)}</p>
         <Input label="Full Name" type="text" id="name" />
