@@ -17,7 +17,7 @@ const cartSlice = createSlice({
           price: newItem.price,
           quantity: 1,
           totalPrice: newItem.price,
-          name: newItem.title,
+          title: newItem.title,
         });
       } else {
         existingItem.quantity++;
@@ -25,14 +25,14 @@ const cartSlice = createSlice({
       }
     },
     removeItemFromCart(state, action) {
-      const existingItem = state.items.find(
-        (item) => item.id === action.payload
-      );
+      const existingItem = state.items.find((item) => {
+        return item.id === action.payload;
+      });
       state.totalQuantity--;
       if (existingItem.quantity > 1) {
-        state.items = state.items.filter((item) => item.id !== action.payload);
-      } else {
         existingItem.quantity--;
+      } else {
+        state.items = state.items.filter((item) => item.id !== action.payload);
       }
     },
   },
