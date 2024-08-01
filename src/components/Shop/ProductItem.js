@@ -8,6 +8,7 @@ const ProductItem = (props) => {
   const dispatch = useDispatch();
   const { title, price, description, id } = props;
   function handleAddToCartClick() {
+    //fetch(firebase url)
     dispatch(
       cartActions.addItemToCart({
         id,
