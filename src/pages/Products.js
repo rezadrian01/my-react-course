@@ -22,7 +22,7 @@ export default function ProductsPage() {
         {PRODUCTS.map((prod) => {
           return (
             <li key={prod.id}>
-              <Link to={`/product/${prod.id}`}>{prod.title}</Link>
+              <Link to={prod.id}>{prod.title}</Link>
             </li>
           );
         })}
