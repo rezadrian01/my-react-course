@@ -1,11 +1,1 @@
-{
-  "events": [
-    {
-      "id": "e1",
-      "title": "A dummy event",
-      "date": "2023-02-22",
-      "image": "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-      "description": "Join this amazing event and connect with fellow developers."
-    }
-  ]
-}
+{"events":[{"title":"Google IO Extended","image":"https://www.google.com/imgres?q=google%20io&imgurl=https%3A%2F%2Fstorage.googleapis.com%2Fgweb-uniblog-publish-prod%2Fimages%2FSP_SocialShare_Update.width-1300.width-1200.format-webp.webp&imgrefurl=https%3A%2F%2Fblog.google%2Fintl%2Fen-africa%2Fproducts%2Fexplore-get-answers%2Fgoogle-io-2024-an-io-for-a-new-generation%2F&docid=zqFCNXwcf-GOaM&tbnid=2rdlx7ZLeolysM&vet=12ahUKEwjs1trIo9iHAxWVUGwGHQ_xLt8QM3oECB0QAA..i&w=1200&h=674&hcb=2&ved=2ahUKEwjs1trIo9iHAxWVUGwGHQ_xLt8QM3oECB0QAA","date":"2024-08-03","description":"fadsfsa","id":"651538df-39c6-45a0-b483-4f8beb6df3e5"},{"title":"fads","image":"http:fadsfa.com","date":"2024-08-03","description":"fasdfas","id":"f65e7070-46a8-4e40-b1c9-def48d04bd08"},{"id":"e1","title":"A dummy event","date":"2023-02-22","image":"https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg","description":"Join this amazing event and connect with fellow developers."}]}
