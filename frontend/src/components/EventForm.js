@@ -1,15 +1,28 @@
-import { Form, useNavigate } from "react-router-dom";
+import {
+  Form,
+  useActionData,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 
 import classes from "./EventForm.module.css";
 
 function EventForm({ method, event }) {
   const navigate = useNavigate();
+  const navigation = useNavigation();
+  const data = useActionData();
+  const isSubmiting = navigation.state === "submitting";
   function cancelHandler() {
     navigate("..");
   }
 
   return (
     <Form method="post" className={classes.form}>
+      {data &&
+        data.errors &&
+        Object.values(data.errors).map((err) => {
+          return <li key={err}>{err}</li>;
+        })}
       <p>
         <label htmlFor="title">Title</label>
         <input
@@ -51,10 +64,12 @@ function EventForm({ method, event }) {
         />
       </p>
       <div className={classes.actions}>
-        <button type="button" onClick={cancelHandler}>
+        <button type="button" onClick={cancelHandler} disabled={isSubmiting}>
           Cancel
         </button>
-        <button>Save</button>
+        <button disabled={isSubmiting}>
+          {isSubmiting ? "Sending..." : "Save"}
+        </button>
       </div>
     </Form>
   );
